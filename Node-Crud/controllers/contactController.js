@@ -7,6 +7,15 @@ exports.Get_Contact = (req, res) => {
 
 // Agregar un usuario
 exports.Add_Contact = (req, res) => {
+  const contact = req.body;
+  const id = contacts.length + 1;
+  contact.id = id;
+  contacts.push(contact);
+  res.send("Contact added");
+};
+
+// Actualizar un usuario
+exports.Update_Contact = (req, res) => {
   const id = req.params.id;
   const updatedContact = req.body;
   updatedContact.id = parseInt(id);
@@ -15,16 +24,10 @@ exports.Add_Contact = (req, res) => {
   res.send("Contact updated");
 };
 
-// Actualizar un usuario
-exports.Update_Contact = (req, res) => {
-  const id = req.params.id;
-  contacts = contacts.filter((contact) => contact.id != id);
-  res.send("Contact deleted");
-};
-
 // Eliminar un usuario
 
 exports.Delete_Contact = (req, res) => {
+  const id = req.params.id;
   contacts = contacts.filter((contact) => contact.id != id);
   res.send("Contact deleted");
 };
