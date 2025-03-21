@@ -28,6 +28,13 @@ exports.Update_Contact = (req, res) => {
 
 exports.Delete_Contact = (req, res) => {
   const id = req.params.id;
-  contacts = contacts.filter((contact) => contact.id != id);
+  if (!id) {
+    return res.status(400).send("ID is required");
+  }
+  const index = contacts.findIndex((contact) => contact.id == id);
+  if (index === -1) {
+    return res.status(404).send("Contact not found");
+  }
+  contacts.splice(index, 1);
   res.send("Contact deleted");
 };
